@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Roboto');
+
+:root {
+    --theme-sky-blue: rgb(44, 80, 201);
+    --theme-purple-lite: #6F1AB6;
+    --theme-red-lite: #FF0032;
+    --theme-red-dark: #CD0404;
+}
+
+
+.home-intro {
+    background: rgb(44, 80, 201);
+    background: linear-gradient(180deg, rgba(44, 80, 201, 1) 0%, rgba(44, 134, 240, 1) 100%);
+    padding: 8rem 0;
+
+}
+
+.home-intro h4 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    color: white;
+    font-weight: 800;
+}
+
+.home-intro span {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+}
+
+
+.nav-theme {
+    background-color: var(--theme-sky-blue);
+    color: #ffffff;
+}
+
+.nav-theme .nav-logo {
+    text-decoration: none;
+    font-family: 'Itim', cursive;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.home-search input{
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.home-search input:active, .home-search input:focus{
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+.home-search {
+    box-shadow: 0px 4px 18px -5px rgba(0,0,0,0.1);
+}
+.home-search button{
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    color: var(--theme-sky-blue);
+}
