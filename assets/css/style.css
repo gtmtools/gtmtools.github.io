@@ -86,3 +86,9 @@
     text-align: center;
     margin: 16px
 }
+
+.rent-details .input-group-text i{
+    font-size: 15px;
+    height: 13px;
+    width: 13px;
+}

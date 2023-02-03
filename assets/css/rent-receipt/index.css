@@ -1,0 +1,32 @@
+  .form-floating:before {
+      content: '';
+      position: absolute;
+      top: 1px;
+      /* border-width (default by BS) */
+      left: 1px;
+      /* border-width (default by BS) */
+      width: calc(100% - 35px);
+      /* to show scrollbar */
+      height: 29px;
+      border-radius: 4px;
+      /* (default by BS) */
+      background-color: #ffffff;
+  }
+
+  .form-floating textarea.form-control {
+      padding-top: 32px;
+      /* height of pseudo element */
+      min-height: 80px;
+      /* not relevant */
+  }
+
+
+
+  .a4 {
+      width: 21cm;
+      height: 29.7cm;
+
+      margin: 1cm auto;
+      padding: 1cm;
+      background-color: white;
+  }
