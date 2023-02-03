@@ -21,6 +21,7 @@
     font-size: 30px;
     color: white;
     font-weight: 800;
+    text-align: center;
 }
 
 .home-intro span {
@@ -28,6 +29,8 @@
     font-size: 20px;
     font-weight: 500;
     color: white;
+    text-align: center;
+
 }
 
 
@@ -64,4 +67,22 @@
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     color: var(--theme-sky-blue);
+}
+
+
+.tools-card{
+    text-decoration: none;
+    color: var(--theme-sky-blue);
+}
+
+.tools-card a{
+    text-decoration: none;
+    text-transform: none;
+    color: var(--theme-sky-blue);
+}
+.tools-card .tools-card-img{
+    height: 6rem;
+    width: 6rem;
+    text-align: center;
+    margin: 16px
 }
