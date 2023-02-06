@@ -44,7 +44,7 @@
             <div class="col-md-3">
                 <div class="card" style="">
                     <img src="../../assets/images/rent-receipt/house-rent.jpg" class="card-img-top" alt="..."
-                        style="height: 150px; width: 250px; text-align: center;   margin: auto;">
+                        style="height: 100px; width: 150px; text-align: center;   margin: auto;">
                     <div class="card-body ">
                         <div class="rent-details">
                             <h5 class="card-title">Rent details</h5>
@@ -54,46 +54,44 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingInputGroup1"
-                                            placeholder="Username" required>
-                                        <label for="floatingInputGroup1">Tenant name</label>
+                                        <input type="text" class="form-control" id="tenantName"
+                                            placeholder="tenantName" required>
+                                        <label for="Tenant Name">Tenant name</label>
                                     </div>
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fa-solid fa-house-user"></i></span>
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a comment here"
-                                            id="floatingTextarea2" style="height: 70px; resize: none;"
+                                        <textarea class="form-control"
+                                            id="houseAddress" style="height: 70px; resize: none;" placeholder="Address"
                                             required></textarea>
-                                        <label for="floatingTextarea2">Rented house address</label>
+                                        <label for="houseAddress">Rented house address</label>
                                     </div>
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fa-solid fa-indian-rupee-sign"></i></span>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingInputGroup1"
-                                            placeholder="Username" required>
-                                        <label for="floatingInputGroup1">House rent</label>
+                                        <input type="text" class="form-control" id="rent"
+                                            placeholder="rent" required>
+                                        <label for="rent">House rent</label>
                                     </div>
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fa-regular fa-calendar"></i></span>
                                     <div class="form-floating">
-                                        <input type="date" class="form-control" id="floatingInputGroup1"
-                                            placeholder="Username" required>
-                                        <label for="floatingInputGroup1">Receipt start date</label>
+                                        <input type="date" class="form-control" id="receipt-start-date" required>
+                                        <label for="receipt-start-date">Receipt start date</label>
                                     </div>
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fa-regular fa-calendar"></i></span>
                                     <div class="form-floating">
-                                        <input type="date" class="form-control" id="floatingInputGroup1"
-                                            placeholder="Username" required>
-                                        <label for="floatingInputGroup1">Receipt end date</label>
+                                        <input type="date" class="form-control" id="receipt-end-date" required>
+                                        <label for="receipt-end-date">Receipt end date</label>
                                     </div>
                                 </div>
 
@@ -101,21 +99,34 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingInputGroup1"
-                                            placeholder="Username" required>
-                                        <label for="floatingInputGroup1">Owner name</label>
+                                        <input type="text" class="form-control" id="ownerName"
+                                            placeholder="Owner Name" required>
+                                        <label for="ownerName">Owner name</label>
                                     </div>
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingInputGroup1"
-                                            placeholder="Username">
-                                        <label for="floatingInputGroup1">Owner's PAN (Optional)</label>
+                                        <input type="text" class="form-control" id="ownersPan"
+                                            placeholder="ownersPan">
+                                        <label for="ownersPan">Owner's PAN (Optional)</label>
                                     </div>
                                 </div>
 
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
+                                    <div class="form-floating">
+                                        <select id="paymentMode" class="form-control">
+                                            <option value="-1">- Select -</option>
+                                            <option value="1">Cash</option>
+                                            <option value="2">Credit/Debit card</option>
+                                            <option value="3">UPI</option>
+                                            <option value="4">Money order</option>
+                                        </select>
+                                        <label for="paymentMode">Payment mode</label>
+                                    </div>
+                                </div>
 
                                 <div class="d-grid gap-2 mt-5">
                                     <button class="btn btn-primary btn-lg " type="submit"
@@ -126,7 +137,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9" style="height: 89vh;">
+            <div class="col-md-9" style="min-height: 89vh; max-height: 95vh;">
                 <div class="col-md-12">
                     <div class="card card-body shadow">
                         <div class="row">
@@ -135,7 +146,7 @@
                                     style="height: 70px; width: 70px;">
                             </div>
                             <div class="col-md-9">
-                                <h4>Rent receipt generator</h4>
+                                <h4>Rent receipt generator <span class="badge bg-success">Free</span></h4>
                                 <span>Generate professional rent receipts with ease using our Rent Receipt Generator
                                     tool</span>
                             </div>
@@ -148,170 +159,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 mt-3" style="height: 85%;">
-                    <div class="card card-body " style="max-height: 100%; ">
-                        <div class="bg-light" style="overflow: auto;">
-                            <div id="receipts-container" class="a4">
-                                <div class="mb-5" style="width: 100%; background-color: white;">
-                                    <div class="row ">
-                                        <div class="col-md-6">
-                                            <h3 style="color: var(--theme-sky-blue); font-weight: 700;">Rent receipt </h3>
-                                        </div>
-                                        <div class="col-md-6 "> 
-                                            <span class="float-end" style="color: #919191; font-weight: 500; font-size: 18px;">(April 2022)</span>
-                                        </div>
-                                    </div>
-                                    
-
-                                    <div class="mt-3">
-                                        <p style="width: 80%;">Received a sum of Rs. 8,100/- from Anjali K towards the
-                                            rent of property situated at #1, 16th Main, Vinayaka layout, Dodda nekkundi,
-                                            Bengaluru, 560037 for the period 01-04-2022 to 30-04-2022</p>
-                                    </div>
-                                    <div class="row mt-5">
-                                        <div class="col-md-6">
-                                            <div>Owner's name: </div>
-                                            <div>PAN: </div>
-                                        </div>
-
-                                        <div class="col-md-6 ">
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">______________________</div></div>
-
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">Signature of landlord</div></div>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="col-md-12 mt-3" style="height: 80%;">
+                    <div class="card card-body " style="height: 100%;">
+                        <div class="bg-light h-100">
+                            <div id="receipts-container" class="h-100" style="overflow: auto;">
 
 
-                                <hr>
-
-                                <div class="mb-5" style="width: 100%; background-color: white;">
-                                    <div class="row ">
-                                        <div class="col-md-6">
-                                            <h3 style="color: var(--theme-sky-blue); font-weight: 700;">Rent receipt </h3>
-                                        </div>
-                                        <div class="col-md-6 "> 
-                                            <span class="float-end" style="color: #919191; font-weight: 500; font-size: 18px;">(April 2022)</span>
-                                        </div>
-                                    </div>
-                                    
-
-                                    <div class="mt-3">
-                                        <p style="width: 80%;">Received a sum of Rs. 8,100/- from Anjali K towards the
-                                            rent of property situated at #1, 16th Main, Vinayaka layout, Dodda nekkundi,
-                                            Bengaluru, 560037 for the period 01-04-2022 to 30-04-2022</p>
-                                    </div>
-                                    <div class="row mt-5">
-                                        <div class="col-md-6">
-                                            <div>Owner's name: </div>
-                                            <div>PAN: </div>
-                                        </div>
-
-                                        <div class="col-md-6 ">
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">______________________</div></div>
-
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">Signature of landlord</div></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <hr>
-
-                                <div class="mb-5" style="width: 100%; background-color: white;">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h3 style="color: var(--theme-sky-blue); font-weight: 700;">Rent receipt </h3>
-                                        </div>
-                                        <div class="col-md-6 "> 
-                                            <span class="float-end" style="color: #919191; font-weight: 500; font-size: 18px;">(April 2022)</span>
-                                        </div>
-                                    </div>
-                                    
-
-                                    <div class="mt-3">
-                                        <p style="width: 80%;">Received a sum of Rs. 8,100/- from Anjali K towards the
-                                            rent of property situated at #1, 16th Main, Vinayaka layout, Dodda nekkundi,
-                                            Bengaluru, 560037 for the period 01-04-2022 to 30-04-2022</p>
-                                    </div>
-                                    <div class="row mt-5">
-                                        <div class="col-md-6">
-                                            <div>Owner's name: </div>
-                                            <div>PAN: </div>
-                                        </div>
-
-                                        <div class="col-md-6 ">
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">______________________</div></div>
-
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">Signature of landlord</div></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="mb-5" style="width: 100%; background-color: white;">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h3 style="color: var(--theme-sky-blue); font-weight: 700;">Rent receipt </h3>
-                                        </div>
-                                        <div class="col-md-6 "> 
-                                            <span class="float-end" style="color: #919191; font-weight: 500; font-size: 18px;">(April 2022)</span>
-                                        </div>
-                                    </div>
-                                    
-
-                                    <div class="mt-3">
-                                        <p style="width: 80%;">Received a sum of Rs. 8,100/- from Anjali K towards the
-                                            rent of property situated at #1, 16th Main, Vinayaka layout, Dodda nekkundi,
-                                            Bengaluru, 560037 for the period 01-04-2022 to 30-04-2022</p>
-                                    </div>
-                                    <div class="row mt-5">
-                                        <div class="col-md-6">
-                                            <div>Owner's name: </div>
-                                            <div>PAN: </div>
-                                        </div>
-
-                                        <div class="col-md-6 ">
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">______________________</div></div>
-
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">Signature of landlord</div></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mb-5" style="width: 100%; background-color: white;">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h3 style="color: var(--theme-sky-blue); font-weight: 700;">Rent receipt </h3>
-                                        </div>
-                                        <div class="col-md-6 "> 
-                                            <span class="float-end" style="color: #919191; font-weight: 500; font-size: 18px;">(April 2022)</span>
-                                        </div>
-                                    </div>
-                                    
-
-                                    <div class="mt-3">
-                                        <p style="width: 80%;">Received a sum of Rs. 8,100/- from Anjali K towards the
-                                            rent of property situated at #1, 16th Main, Vinayaka layout, Dodda nekkundi,
-                                            Bengaluru, 560037 for the period 01-04-2022 to 30-04-2022</p>
-                                    </div>
-                                    <div class="row mt-5">
-                                        <div class="col-md-6">
-                                            <div>Owner's name: </div>
-                                            <div>PAN: </div>
-                                        </div>
-
-                                        <div class="col-md-6 ">
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">______________________</div></div>
-
-                                            <div class="d-grid gap-2"><div class="d-flex justify-content-end">Signature of landlord</div></div>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
