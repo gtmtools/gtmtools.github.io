@@ -1,6 +1,29 @@
 $(document).ready(function () {
     var pages = [];
     var receipts = [];
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+    $(document).keydown(function (e) {
+        if (e.ctrlKey && e.keyCode == 83) {
+            e.preventDefault();
+            $('#save-as-pdf').click();
+        }
+    });
+
+    $('#save-as-pdf').attr('disabled', true);
+
+
+    $('input').on('keyup change', function () {
+        $(this).removeClass('is-invalid');
+    })
+    $('select').on('change', function () {
+        $(this).removeClass('is-invalid');
+    })
+
+    $('textarea').on('keyup', function () {
+        $(this).removeClass('is-invalid');
+    })
 
     $('#generate-receipts').click(function (e) {
         receipts = [];
@@ -10,35 +33,126 @@ $(document).ready(function () {
         getPDF(getReceipts());
     })
 
+    $('.numOnly').on('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    $('.caps').on('keyup', function () {
+        return this.value.toUpperCase();
+    });
+
     function getPDF(formData) {
         const formDataJson = JSON.parse(formData)[0];
-        var receipts = [];
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+        const tenantName = formDataJson.tenantName;
+        const houseAddress = formDataJson.houseAddress;
+        const rent = formDataJson.rent;
         var startDate = new Date(formDataJson.startDate);
         var endDate = new Date(formDataJson.endDate);
+        const ownersName = formDataJson.ownersName;
+        const ownersPan = formDataJson.ownersPan;
+        const paymentMode = formDataJson.paymentMode;
 
-        while (startDate <= endDate) {
-            var month = startDate.getMonth();
-            var year = startDate.getFullYear();
-            var receipt = {};
+        var isErrorExist = false;
 
-
-            receipt["id"] = month;
-            receipt["tenantName"] = formDataJson.tenantName;
-            receipt["houseAddress"] = formDataJson.houseAddress;
-            receipt["rent"] = formDataJson.rent;
-            receipt["monthAndYear"] = monthNames[month] + " " + year;
-            receipt["ownersName"] = formDataJson.ownersName;
-            receipt["ownersPan"] = formDataJson.ownersPan;
-            receipt["paymentMode"] = getPaymentModestring(formDataJson.paymentMode);
-
-
-            receipts.push(receipt);
-            startDate.setMonth(startDate.getMonth() + 1);
+        if (tenantName === null || tenantName === "") {
+            $('#tenantName').addClass('is-invalid');
+            isErrorExist = true;
+        } else {
+            $('#tenantName').removeClass('is-invalid');
         }
 
-        showPDF(JSON.stringify(receipts), "#receipts-container");
+
+        if (houseAddress === null || houseAddress === "" || houseAddress.length > 256) {
+            $('#houseAddress').addClass('is-invalid');
+            isErrorExist = true;
+        } else {
+            $('#houseAddress').removeClass('is-invalid');
+        }
+
+
+        if (rent === null || rent === "") {
+            $('#rent').addClass('is-invalid');
+            isErrorExist = true;
+        } else {
+            $('#rent').removeClass('is-invalid');
+        }
+
+        if (!formDataJson.startDate) {
+            $('#receipt-start-date').addClass('is-invalid');
+            isErrorExist = true;
+        } else {
+            $('#receipt-start-date').removeClass('is-invalid');
+        }
+
+        if (!formDataJson.endDate) {
+            $('#receipt-end-date').addClass('is-invalid');
+            isErrorExist = true;
+        } else if (endDate < startDate) {
+            $('#receipt-end-date').addClass('is-invalid');
+            isErrorExist = true;
+        } else {
+            $('#receipt-end-date').removeClass('is-invalid');
+        }
+
+        if (ownersName === null || ownersName === "") {
+            $('#ownerName').addClass('is-invalid');
+            isErrorExist = true;
+        } else {
+            $('#ownerName').removeClass('is-invalid');
+        }
+
+        if (paymentMode === null || paymentMode === "-1" || paymentMode === -1) {
+            $('#paymentMode').addClass('is-invalid');
+            isErrorExist = true;
+        } else {
+            $('#paymentMode').removeClass('is-invalid');
+        }
+
+
+
+
+
+        if (!isErrorExist) {
+
+            var receipts = [];
+            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+
+            while (startDate <= endDate) {
+                var month = startDate.getMonth();
+                var year = startDate.getFullYear();
+                var receipt = {};
+
+
+                receipt["id"] = month;
+                receipt["tenantName"] = tenantName;
+                receipt["houseAddress"] = houseAddress;
+                receipt["rent"] = rent;
+                receipt["monthAndYear"] = monthNames[month] + " " + year;
+                receipt["ownersName"] = ownersName;
+                receipt["ownersPan"] = ownersPan;
+                receipt["paymentMode"] = getPaymentModestring(paymentMode);
+
+
+                receipts.push(receipt);
+                startDate.setMonth(startDate.getMonth() + 1);
+            }
+
+            try {
+                showPDF(JSON.stringify(receipts), "#receipts-container");
+                $('#save-as-pdf').attr('disabled', false);
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            showToast("Details required", "Please enter all required to generate receipts.", 5000);
+        }
+
     }
+
+
 
 
     function showPDF(formData, target) {
@@ -58,8 +172,15 @@ $(document).ready(function () {
                     margin: [0, 0, 0, 0],
                     color: '#2C50C9'
                 },
+                monthAndYear: {
+                    alignment: 'right',
+                    fontSize: 15,
+                    bold: true,
+                    color: '#BBBBBB'
+                },
                 description: {
-                    margin: [0, 15, 0, 15]
+                    margin: [0, 15, 0, 15],
+                    height: 40
                 },
                 paymentMode: {
                     margin: [0, 0, 0, 15]
@@ -83,14 +204,40 @@ $(document).ready(function () {
                 style: 'separator'
             };
 
+
+            var ownerDetails = {};
+            if (formDataJson[index].ownersPan === null || formDataJson[index].ownersPan === "") {
+                ownerDetails =
+                    [
+                        "\n\nOwner's name: ",
+                        { text: formDataJson[index].ownersName, bold: true }
+                    ]
+
+            } else {
+                ownerDetails =
+                    [
+                        "\nOwner's name: ",
+                        { text: formDataJson[index].ownersName, bold: true },
+                        "\nOwner's PAN: ",
+                        { text: formDataJson[index].ownersPan, bold: true }
+                    ]
+
+            }
+
             docDefinition.content.push([
                 {
-                    text: 'Rent receipt',
-                    style: 'header'
-                },
-                {
-                    text: formDataJson[index].monthAndYear,
-                    style: 'monthAndYear'
+                    columns: [
+                        {
+                            text: 'Rent receipt',
+                            style: 'header'
+                        },
+
+                        {
+                            text: formDataJson[index].monthAndYear,
+                            style: 'monthAndYear'
+                        }
+                    ],
+
                 },
 
                 {
@@ -120,15 +267,11 @@ $(document).ready(function () {
                 {
                     columns: [
                         {
-                            text: [
-                                "Owner's name: ",
-                                { text: formDataJson[index].ownersName + "\n", bold: true },
-                                "Owner's PAN: ",
-                                { text: formDataJson[index].ownersPan, bold: true }
-                            ]
+                            text: ownerDetails
                         },
                         {
                             text: [
+                                "\n",
                                 "______________________\n",
                                 "(Signature of landlord) "
                             ],
@@ -159,8 +302,10 @@ $(document).ready(function () {
 
 
         $('#save-as-pdf').on('click', function () {
-            pdfMake.createPdf(docDefinition).download(formDataJson[0].tenantName+"-[gtmpai.github.io].pdf");
+            pdfMake.createPdf(docDefinition).download(formDataJson[0].tenantName + "-[gtmpai.github.io].pdf");
         });
+
+
 
 
 
@@ -181,6 +326,9 @@ $(document).ready(function () {
             case "4":
                 PaymentModestring = "Money order"
                 break;
+            case "5":
+                PaymentModestring = "Cheque"
+                break;
 
             default:
                 PaymentModestring = "Other"
@@ -199,7 +347,7 @@ $(document).ready(function () {
         const startDate = new Date($('#receipt-start-date').val());
         const endDate = new Date($('#receipt-end-date').val());
         const ownersName = $('#ownerName').val();
-        const ownersPan = $('#ownersPan').val();
+        const ownersPan = $('#ownersPan').val().toUpperCase();
         const paymentMode = $('#paymentMode').val();
 
 
@@ -215,28 +363,14 @@ $(document).ready(function () {
             paymentMode
         };
         return JSON.stringify([formData]);
-
-
-        // while (startDate <= endDate) {
-        //    
-
-        //     const receipt = $('<div class="receipt pb-5 mt-2" id="receipt' + (receipts.length + 1) + '"><div class="row">' +
-        //         '<div class="col-md-6"><h4 style="color: var(--theme-sky-blue);">Rent receipt</h4></div>' +
-        //         '<div class="col-md-6"><div class="d-flex justify-content-end">' + monthNames[month] + " " + year + '</div></div></div>' +
-        //         '<div class="col-md-9 my-4"><p>Received a sum of <strong>Rs. ' + rent + '</strong> from <strong>' + tenantName + '</strong>' +
-        //         ' for the rent of property situated at <strong>' + houseAddress + '</strong> for the month <strong>' + monthNames[month] + " " + year + '</strong></p>' +
-        //         '<div class="col-md-12"><p>Payment mode: <span>' + paymentMode + ' </span></p></div></div>' +
-        //         '<div class="col-md-12"><div class="row"><div class="col-md-6">' +
-        //         '<div class="col-md-12">Owner"s name: <span>' + ownersName + '</span></div>' +
-        //         '<div class="col-md-12">PAN:  <span>' + ownersPan + '</span></div></div>' +
-        //         '<div class="col-md-6"><div class="col-md-12 d-flex justify-content-end">______________________</div>' +
-        //         '<div class="col-md-12 d-flex justify-content-end">(Signature of owner)</div>' +
-        //         '</div></div></div></div><div>----------------------------------------------------------------------------------------------------------------</div>');
-
-        //     receipts.push(receipt);
-        //     startDate.setMonth(startDate.getMonth() + 1);
-        // }
     }
 
+
+    function showToast(subject, message, duration) {
+        $('#toastBodySubject').html(subject);
+        $('#toastBodyText').html(message);
+        const toast = new bootstrap.Toast($('#liveToast'));
+        toast.show();
+    }
 
 });

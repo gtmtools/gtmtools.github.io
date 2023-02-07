@@ -1,3 +1,8 @@
+  *{
+    user-select: none;
+  }
+  
+  
   .form-floating:before {
       content: '';
       position: absolute;
@@ -11,6 +16,7 @@
       border-radius: 4px;
       /* (default by BS) */
       background-color: #ffffff;
+      pointer-events: none;
   }
 
   .form-floating textarea.form-control {
